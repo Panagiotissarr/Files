@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script>
+    const path = location.pathname;
+    location.replace(
+      location.origin +
+      "/" +
+      path.split("/")[1] +
+      "/?p=" +
+      encodeURIComponent(path)
+    );
+  </script>
+</head>
+<body></body>
+</html>

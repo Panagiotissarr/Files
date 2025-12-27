@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Index</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="panel">
+  <div class="header">
+      <h1>Files</h1>
+      <p>Welcome! This is a file repo made by Panagiotis.
+         <a href="https://panagiotissarr.github.io" style="color:#4da6ff;">Click Here</a> to return to the main homepage.
+      </p>
+  </div>
+
+  <div class="path">/files/</div>
+  <div class="search">
+      <input type="text" id="search" placeholder="Type to search…">
+  </div>
+
+  <table id="fileTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Name ↓</th>
+        <th>Size</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="fileBody"></tbody>
+  </table>
+</div>
+
+<script>
+// Manually list your files here
+const files = [
+  {name:"logo mini", path:"files/images/logo-mini.png", type:"image", size:"31 KB", date:"2025-12-04"}
+];
+
+const tbody = document.getElementById('fileBody');
+
+files.forEach(item => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><span class="icon">${item.type==="folder"?"📁":"📄"}</span>
+        <a href="${item.path}" class="name-link">${item.name}</a></td>
+    <td>${item.size}</td>
+    <td>${item.date}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// Search functionality
+document.getElementById("search").addEventListener("input", function(){
+  const term = this.value.toLowerCase();
+  Array.from(tbody.querySelectorAll("tr")).forEach(r => {
+    r.style.display = r.innerText.toLowerCase().includes(term) ? "" : "none";
+  });
+});
+
+// Sorting
+window.sortTable = function(colIndex){
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  const ascending = tbody.getAttribute("data-sort") !== "asc";
+  rows.sort((a,b)=>{
+    let A=a.cells[colIndex].innerText.toLowerCase();
+    let B=b.cells[colIndex].innerText.toLowerCase();
+    return ascending?A.localeCompare(B):B.localeCompare(A);
+  });
+  tbody.setAttribute("data-sort", ascending?"asc":"desc");
+  rows.forEach(r=>tbody.appendChild(r));
+}
+</script>
+</body>
+</html>
