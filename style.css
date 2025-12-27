@@ -56,12 +56,11 @@ h1 {
 /* Search box */
 #search {
   display: block;
-  margin: 10px auto 20px auto;
-  padding: 8px 12px;
+  margin: 0 0 15px 0; /* align left with files */
+  padding: 6px 10px;
   border-radius: 5px;
   border: none;
-  width: 80%;
-  max-width: 500px;
+  width: 50%; /* smaller width */
   font-size: 14px;
 }
 
@@ -74,14 +73,25 @@ ul {
 
 li {
   display: flex;
-  justify-content: flex-end; /* align text to right */
+  justify-content: flex-end; /* text right */
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
   align-items: center;
-  text-align: right; /* ensure text inside spans/links is right-aligned */
 }
 
+li span, li a {
+  flex: 1;
+  text-align: right; /* text aligned right */
+}
+
+/* Icon spacing */
+li span::before, li a::before {
+  margin-right: 10px;
+  float: left; /* icon stays on left */
+}
+
+/* Hover effect */
 li:hover {
   background: rgba(255,255,255,0.05);
   border-left: 4px solid #4e9af1;
