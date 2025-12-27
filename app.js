@@ -1,15 +1,15 @@
 const OWNER = "panagiotissarr";
 const REPO = "files";
 const BRANCH = "main";
-const ROOT = "files"; // points to the /files folder
+const ROOT = "files"; // /files is the virtual root
 
 const list = document.getElementById("list");
 const pathView = document.getElementById("path");
 
-// Determine path from URL
 function getPathFromURL() {
   const urlPath = window.location.pathname;
-  const parts = urlPath.split("/").filter(Boolean); // remove empty parts
+  const parts = urlPath.split("/").filter(Boolean); // remove empty
+  // remove first part (repo root) if exists
   return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
