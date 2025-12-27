@@ -96,11 +96,14 @@ li a:hover {
   text-decoration: underline;
 }
 
-/* Remove old pseudo-element emojis */
-li::before,
+li::before {
+  content: "📁"; /* folder icon by default */
+  margin-right: 10px;
+}
+
 li a::before {
-  content: "";
-  margin-right: 0;
+  content: "📄"; /* file icon */
+  margin-right: 10px;
 }
 
 /* Footer */

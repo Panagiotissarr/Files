@@ -55,16 +55,14 @@ async function load(path = getPathFromURL()) {
     const li = document.createElement("li");
 
     if (item.type === "dir") {
-      // Special emoji for "emojis" folder
-      const folderEmoji = item.name === "emojis" ? "🎨" : "📁";
-      li.textContent = `${folderEmoji} ${item.name}`;
+      li.textContent = item.name;
       li.onclick = () => {
         setURL(item.path);
         load(item.path);
       };
     } else {
       const a = document.createElement("a");
-      a.textContent = `📄 ${item.name}`; // file emoji
+      a.textContent = item.name;
       a.href = item.download_url;
       a.target = "_blank";
       li.appendChild(a);
@@ -80,6 +78,7 @@ searchInput.addEventListener("input", () => {
   const items = list.querySelectorAll("li");
 
   items.forEach(li => {
+    // Keep ".." always visible
     if (li.textContent === "..") {
       li.style.display = "";
       return;
