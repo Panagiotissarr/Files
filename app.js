@@ -1,15 +1,15 @@
 const OWNER = "panagiotissarr";
 const REPO = "files";
 const BRANCH = "main";
-const ROOT = "files";
+const ROOT = "files"; // /files is the virtual root
 
 const list = document.getElementById("list");
 const pathView = document.getElementById("path");
-const searchInput = document.getElementById("search");
 
 function getPathFromURL() {
   const urlPath = window.location.pathname;
-  const parts = urlPath.split("/").filter(Boolean);
+  const parts = urlPath.split("/").filter(Boolean); // remove empty
+  // remove first part (repo root) if exists
   return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
@@ -42,7 +42,7 @@ async function load(path = getPathFromURL()) {
 
   if (path !== ROOT) {
     const li = document.createElement("li");
-    li.innerHTML = `<span>📁 ..</span>`;
+    li.textContent = "..";
     li.onclick = () => {
       const p = parentPath(path);
       setURL(p);
@@ -53,29 +53,24 @@ async function load(path = getPathFromURL()) {
 
   data.forEach(item => {
     const li = document.createElement("li");
+
     if (item.type === "dir") {
-      li.innerHTML = `<span>📁 ${item.name}</span>`;
+      li.textContent = item.name;
       li.onclick = () => {
         setURL(item.path);
         load(item.path);
       };
     } else {
-      li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
+      const a = document.createElement("a");
+      a.textContent = item.name;
+      a.href = item.download_url;
+      a.target = "_blank";
+      li.appendChild(a);
     }
+
     list.appendChild(li);
   });
 }
-
-// Filter files in the current folder
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase();
-  const items = list.querySelectorAll("li");
-
-  items.forEach(li => {
-    const text = li.textContent.toLowerCase();
-    li.style.display = text.includes(query) ? "" : "none";
-  });
-});
 
 window.onpopstate = () => load();
 load();
