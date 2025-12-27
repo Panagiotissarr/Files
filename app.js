@@ -42,7 +42,7 @@ async function load(path = getPathFromURL()) {
 
   if (path !== ROOT) {
     const li = document.createElement("li");
-    li.innerHTML = `<span>📁 ..</span>`;
+    li.innerHTML = `<span data-icon="📁">..</span>`;
     li.onclick = () => {
       const p = parentPath(path);
       setURL(p);
@@ -54,13 +54,13 @@ async function load(path = getPathFromURL()) {
   data.forEach(item => {
     const li = document.createElement("li");
     if (item.type === "dir") {
-      li.innerHTML = `<span>📁 ${item.name}</span>`;
+      li.innerHTML = `<span data-icon="📁">${item.name}</span>`;
       li.onclick = () => {
         setURL(item.path);
         load(item.path);
       };
     } else {
-      li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
+      li.innerHTML = `<a href="${item.download_url}" target="_blank" data-icon="📄">${item.name}</a>`;
     }
     list.appendChild(li);
   });

@@ -56,7 +56,7 @@ h1 {
 /* Search box */
 #search {
   display: block;
-  margin: 0 0 15px 0; /* align left with files */
+  margin: 0 0 15px 0; /* aligned with file list */
   padding: 6px 10px;
   border-radius: 5px;
   border: none;
@@ -73,22 +73,25 @@ ul {
 
 li {
   display: flex;
-  justify-content: flex-end; /* text right */
+  align-items: center;
+  justify-content: space-between; /* icon left, text right */
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
-  align-items: center;
 }
 
+/* Icon on the left */
+li span::before,
+li a::before {
+  content: attr(data-icon);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* Make text take remaining space and align right */
 li span, li a {
   flex: 1;
-  text-align: right; /* text aligned right */
-}
-
-/* Icon spacing */
-li span::before, li a::before {
-  margin-right: 10px;
-  float: left; /* icon stays on left */
+  text-align: right;
 }
 
 /* Hover effect */
