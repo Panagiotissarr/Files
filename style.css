@@ -56,11 +56,11 @@ h1 {
 /* Search box */
 #search {
   display: block;
-  margin: 0 0 15px 0; /* aligned with file list */
+  margin: 0 0 15px 0;
   padding: 6px 10px;
   border-radius: 5px;
   border: none;
-  width: 50%; /* smaller width */
+  width: 50%;
   font-size: 14px;
 }
 
@@ -74,24 +74,25 @@ ul {
 li {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* icon left, text right */
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
 }
 
 /* Icon on the left */
-li span::before,
-li a::before {
-  content: attr(data-icon);
-  margin-right: 10px;
+li span.icon,
+li a.icon {
   flex-shrink: 0;
+  margin-right: 10px;
+  font-size: 18px;
 }
 
-/* Make text take remaining space and align right */
-li span, li a {
+/* Text right-aligned */
+li span.name,
+li a.name {
   flex: 1;
   text-align: right;
+  word-break: break-word;
 }
 
 /* Hover effect */
