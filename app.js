@@ -1,31 +1,29 @@
 const OWNER = "panagiotissarr";
 const REPO = "files";
 const BRANCH = "main";
-const ROOT = "files";
+const ROOT = "files"; // points to the /files folder
 
 const list = document.getElementById("list");
 const pathView = document.getElementById("path");
 
-// GitHub Pages base path (repo name)
-const BASE = "/" + REPO;
-
+// Determine path from URL
 function getPathFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  let path = params.get("p");
-
-  if (!path) {
-    path = window.location.pathname;
-  }
-
-  // Remove /files (repo name)
-  if (path.startsWith("/" + REPO)) {
-    path = path.slice(REPO.length + 1);
-  }
-
-  path = path.replace(/^\/+|\/+$/g, "");
-  return path ? `${ROOT}/${path}` : ROOT;
+  const urlPath = window.location.pathname;
+  const parts = urlPath.split("/").filter(Boolean); // remove empty parts
+  return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
+function setURL(dirPath) {
+  const clean = dirPath.replace(`${ROOT}/`, "");
+  const base = window.location.origin;
+  history.pushState(null, "", base + "/" + REPO + "/" + clean);
+}
+
+function parentPath(path) {
+  const parts = path.split("/");
+  parts.pop();
+  return parts.join("/") || ROOT;
+}
 
 async function load(path = getPathFromURL()) {
   const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`;
