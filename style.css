@@ -65,21 +65,21 @@ h1 {
   font-size: 14px;
 }
 
-/* File list table style */
+/* File list style */
 ul {
   list-style: none;
   padding: 0;
-  border-collapse: collapse;
   width: 100%;
 }
 
 li {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* align text to right */
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
   align-items: center;
+  text-align: right; /* ensure text inside spans/links is right-aligned */
 }
 
 li:hover {
@@ -94,16 +94,6 @@ li a {
 
 li a:hover {
   text-decoration: underline;
-}
-
-li::before {
-  content: "📁"; /* folder icon by default */
-  margin-right: 10px;
-}
-
-li a::before {
-  content: "📄"; /* file icon */
-  margin-right: 10px;
 }
 
 /* Footer */

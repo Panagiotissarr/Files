@@ -42,7 +42,7 @@ async function load(path = getPathFromURL()) {
 
   if (path !== ROOT) {
     const li = document.createElement("li");
-    li.textContent = "..";
+    li.innerHTML = `<span>📁 ..</span>`;
     li.onclick = () => {
       const p = parentPath(path);
       setURL(p);
@@ -53,21 +53,15 @@ async function load(path = getPathFromURL()) {
 
   data.forEach(item => {
     const li = document.createElement("li");
-
     if (item.type === "dir") {
-      li.textContent = item.name;
+      li.innerHTML = `<span>📁 ${item.name}</span>`;
       li.onclick = () => {
         setURL(item.path);
         load(item.path);
       };
     } else {
-      const a = document.createElement("a");
-      a.textContent = item.name;
-      a.href = item.download_url;
-      a.target = "_blank";
-      li.appendChild(a);
+      li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
     }
-
     list.appendChild(li);
   });
 }
@@ -78,11 +72,6 @@ searchInput.addEventListener("input", () => {
   const items = list.querySelectorAll("li");
 
   items.forEach(li => {
-    // Keep ".." always visible
-    if (li.textContent === "..") {
-      li.style.display = "";
-      return;
-    }
     const text = li.textContent.toLowerCase();
     li.style.display = text.includes(query) ? "" : "none";
   });
