@@ -1,15 +1,15 @@
 const OWNER = "panagiotissarr";
 const REPO = "files";
 const BRANCH = "main";
-const ROOT = "files";
+const ROOT = "files"; // /files is the virtual root
 
 const list = document.getElementById("list");
 const pathView = document.getElementById("path");
-const searchInput = document.getElementById("search");
 
 function getPathFromURL() {
   const urlPath = window.location.pathname;
-  const parts = urlPath.split("/").filter(Boolean);
+  const parts = urlPath.split("/").filter(Boolean); // remove empty
+  // remove first part (repo root) if exists
   return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
@@ -71,22 +71,6 @@ async function load(path = getPathFromURL()) {
     list.appendChild(li);
   });
 }
-
-// Filter files in the current folder
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase();
-  const items = list.querySelectorAll("li");
-
-  items.forEach(li => {
-    // Keep ".." always visible
-    if (li.textContent === "..") {
-      li.style.display = "";
-      return;
-    }
-    const text = li.textContent.toLowerCase();
-    li.style.display = text.includes(query) ? "" : "none";
-  });
-});
 
 window.onpopstate = () => load();
 load();
