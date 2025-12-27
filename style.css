@@ -1,28 +1,28 @@
-/* Full screen background */
+/* Full screen forest wallpaper */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #eee;
-  background: url('background.jpg') no-repeat center center fixed;
+  background: url('https://wallpapers.com/images/high/caption-a-sweeping-view-of-a-lush-green-forest-under-clear-blue-skies-91kyzjnk6atceml1.webp') no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Overlay panel */
+/* Dark overlay for contrast */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.65); /* semi-transparent dark overlay */
+  background: rgba(0,0,0,0.55);
   z-index: -1;
 }
 
-/* Container panel */
-h1, #path, ul {
+/* Main panel container */
+.panel {
   max-width: 900px;
   margin: 40px auto;
   padding: 20px 30px;
-  background: rgba(30, 30, 30, 0.75);
+  background: rgba(30,30,30,0.75);
   border-radius: 10px;
   box-shadow: 0 0 25px rgba(0,0,0,0.5);
 }
@@ -30,16 +30,39 @@ h1, #path, ul {
 /* Header */
 h1 {
   font-size: 28px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
+}
+
+/* Note section */
+.note {
+  background: rgba(50, 50, 50, 0.7);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ddd;
 }
 
 /* Path display */
 #path {
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   color: #ccc;
   text-align: center;
+}
+
+/* Search box */
+#search {
+  display: block;
+  margin: 10px auto 20px auto;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  width: 80%;
+  max-width: 500px;
+  font-size: 14px;
 }
 
 /* File list table style */
@@ -54,14 +77,14 @@ li {
   display: flex;
   justify-content: space-between;
   padding: 10px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
   align-items: center;
 }
 
 li:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #4e9af1; /* subtle highlight */
+  background: rgba(255,255,255,0.05);
+  border-left: 4px solid #4e9af1;
 }
 
 li a {
@@ -73,9 +96,8 @@ li a:hover {
   text-decoration: underline;
 }
 
-/* Icon spacing (optional, you can add emoji or SVG) */
 li::before {
-  content: "📁"; /* folder default icon */
+  content: "📁"; /* folder icon by default */
   margin-right: 10px;
 }
 
@@ -84,22 +106,10 @@ li a::before {
   margin-right: 10px;
 }
 
-/* Search box styling */
-input[type="text"] {
-  display: block;
-  margin: 15px auto 20px auto;
-  padding: 8px 12px;
-  border-radius: 5px;
-  border: none;
-  width: 80%;
-  max-width: 500px;
-  font-size: 14px;
-}
-
-/* Footer note style */
+/* Footer */
 footer {
   text-align: center;
   font-size: 12px;
-  margin: 20px auto;
+  margin: 20px auto 0 auto;
   color: #aaa;
 }
