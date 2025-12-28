@@ -8,14 +8,15 @@ const pathView = document.getElementById("path");
 
 function getPathFromURL() {
   const urlPath = window.location.pathname;
-  const parts = urlPath.split("/").filter(Boolean);
+  const parts = urlPath.split("/").filter(Boolean); // remove empty
+  // remove first part (repo root) if exists
   return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
 function setURL(dirPath) {
   const clean = dirPath.replace(`${ROOT}/`, "");
   const base = window.location.origin;
-  history.pushState(null, "", base + "/" + clean);
+  history.pushState(null, "", base + "/" + REPO + "/" + clean);
 }
 
 function parentPath(path) {
@@ -39,46 +40,31 @@ async function load(path = getPathFromURL()) {
   list.innerHTML = "";
   pathView.textContent = "/" + path.replace(`${ROOT}/`, "");
 
-  // Parent directory
   if (path !== ROOT) {
     const li = document.createElement("li");
-    const span = document.createElement("span");
-    span.textContent = "..";
-    li.appendChild(span);
-
+    li.textContent = "..";
     li.onclick = () => {
       const p = parentPath(path);
       setURL(p);
       load(p);
     };
-
     list.appendChild(li);
   }
 
-  // Files & folders
   data.forEach(item => {
     const li = document.createElement("li");
 
-    if (item.type === "dir") {
-      const span = document.createElement("span");
-      span.textContent = item.name;
-      li.appendChild(span);
+if (item.type === "dir") {
+  const span = document.createElement("span");
+  span.textContent = item.name;
+  li.appendChild(span);
 
-      li.onclick = () => {
-        setURL(item.path);
-        load(item.path);
-      };
-    } else {
-      const a = document.createElement("a");
-      a.textContent = item.name;
-      a.href = item.download_url;
-      a.target = "_blank";
-      li.appendChild(a);
-    }
-
-    list.appendChild(li);
-  });
+  li.onclick = () => {
+    setURL(item.path);
+    load(item.path);
+  };
 }
+
 
 window.onpopstate = () => load();
 load();
