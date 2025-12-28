@@ -8,15 +8,14 @@ const pathView = document.getElementById("path");
 
 function getPathFromURL() {
   const urlPath = window.location.pathname;
-  const parts = urlPath.split("/").filter(Boolean); // remove empty
-  // remove first part (repo root) if exists
+  const parts = urlPath.split("/").filter(Boolean);
   return parts.length > 1 ? `${ROOT}/${parts.slice(1).join("/")}` : ROOT;
 }
 
 function setURL(dirPath) {
   const clean = dirPath.replace(`${ROOT}/`, "");
   const base = window.location.origin;
-  history.pushState(null, "", base + "/" + REPO + "/" + clean);
+  history.pushState(null, "", base + "/" + clean);
 }
 
 function parentPath(path) {
@@ -40,22 +39,31 @@ async function load(path = getPathFromURL()) {
   list.innerHTML = "";
   pathView.textContent = "/" + path.replace(`${ROOT}/`, "");
 
+  // Parent directory
   if (path !== ROOT) {
     const li = document.createElement("li");
-    li.textContent = "..";
+    const span = document.createElement("span");
+    span.textContent = "..";
+    li.appendChild(span);
+
     li.onclick = () => {
       const p = parentPath(path);
       setURL(p);
       load(p);
     };
+
     list.appendChild(li);
   }
 
+  // Files & folders
   data.forEach(item => {
     const li = document.createElement("li");
 
     if (item.type === "dir") {
-      li.textContent = item.name;
+      const span = document.createElement("span");
+      span.textContent = item.name;
+      li.appendChild(span);
+
       li.onclick = () => {
         setURL(item.path);
         load(item.path);
