@@ -54,17 +54,23 @@ async function load(path = getPathFromURL()) {
   data.forEach(item => {
     const li = document.createElement("li");
 
-if (item.type === "dir") {
-  const span = document.createElement("span");
-  span.textContent = item.name;
-  li.appendChild(span);
+    if (item.type === "dir") {
+      li.textContent = item.name;
+      li.onclick = () => {
+        setURL(item.path);
+        load(item.path);
+      };
+    } else {
+      const a = document.createElement("a");
+      a.textContent = item.name;
+      a.href = item.download_url;
+      a.target = "_blank";
+      li.appendChild(a);
+    }
 
-  li.onclick = () => {
-    setURL(item.path);
-    load(item.path);
-  };
+    list.appendChild(li);
+  });
 }
-
 
 window.onpopstate = () => load();
 load();
