@@ -21,17 +21,17 @@ No backend. No build step. Works entirely in the browser.
 ---
 
 ## Project Structure
-'
-/
-├── index.html
-├── app.js
-├── style.css
-└── files/
-├── images/
-│ └── example.png
-└── docs/
-└── readme.txt
-'
+
+- /
+- ├── index.html
+- ├── app.js
+- ├── style.css
+- └── files/
+- ├── images/
+- │ └── example.png
+- └── docs/
+- └── readme.txt
+
 
 All visible files and folders are inside `/files`.  
 No nested `/files/files` folder is needed.
