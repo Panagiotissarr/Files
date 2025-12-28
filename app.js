@@ -69,8 +69,18 @@ async function load(path = getPathFromURL()) {
     }
 
     list.appendChild(li);
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  const items = list.querySelectorAll("li");
+
+  items.forEach(li => {
+    const text = li.textContent.toLowerCase();
+    li.style.display = text.includes(query) ? "" : "none";
   });
-}
+});
+
 
 window.onpopstate = () => load();
 load();
